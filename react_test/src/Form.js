@@ -19,18 +19,35 @@ const [name, setName] = useState(''),
 [phoneNumberError, setPhoneError] = useState('Поле не может быть пустым'),
 [dateOfBirthError, setDateOfBirthError] = useState('Поле не может быть пустым')
 
-
 const regularPhoneNumber = '/^[\d]{1}\ \([\d]{2,3}\)\ [\d]{2,3}-[\d]{2,3}-[\d]{2,3}$/';
 
-const nameHandler = (e) => {
-  setName(e.target.value)
+const emailHandler = (e) => {
+  setEmail(e.target.value)
 
-  const re ='/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i';
-  if(!re.test(String(e.target.value).toLwerCase())) {
+  const re =/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  if(!re.test(String(e.target.value).toLowerCase())) {
     setEmailError('Некорректный E-mail')
   } else {
     setEmailError('');
   }
+}
+
+const nameHandler = (e) => {
+  setName(e.target.value)
+  const re =/^[A-Z][a-z]+$/,
+    sep = " ",
+    string = e.target.value,
+    words = string.split(sep)
+  console.log(words)
+  
+
+  // if(!re.test(String(e.target.value))) {
+  //   setNameError('Некорректные данные');
+  // } else {
+  //   setNameError('');
+  // }
+  // setName(e.target.value);
+  // if(e.target.value < 3 || e.target.value > 30) {}
 }
 
 const outOfInputHandler = (e) => {
@@ -60,12 +77,12 @@ const outOfInputHandler = (e) => {
         <label>
         {(nameEmpty && nameError) && <div style={{color:'red'}}>{nameError}</div>}
           Имя и Фамилия:
-          <input onBlur={e => outOfInputHandler(e)} type="text" name="name" value={name} placeholder="Введите свое имя и фамилию..."/>
+          <input onChange={e => nameHandler(e)} onBlur={e => outOfInputHandler(e)} type="text" name="name" value={name} placeholder="Введите свое имя и фамилию..."/>
         </label>
         <label>
           {(emailEmpty && emailError) && <div style={{color:'red'}}>{emailError}</div>}
           E-mail:
-          <input onBlur={e => outOfInputHandler(e)} type="text" name="email" placeholder="Введите свой E-mail..."/>
+          <input onChange={e => emailHandler(e)} onBlur={e => outOfInputHandler(e)} type="text" name="email" placeholder="Введите свой E-mail..."/>
         </label>
         <label>
         {(phoneNumberEmpty && phoneNumberError) && <div style={{color:'red'}}>{phoneNumberError}</div>}
