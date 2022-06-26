@@ -34,18 +34,28 @@ const emailHandler = (e) => {
 
 const nameHandler = (e) => {
   setName(e.target.value)
-  const re =/^[A-Z][a-z]+$/,
+
+  const re =/^[a-z](.*[a-z])?$/igm,
     sep = " ",
     string = e.target.value,
     words = string.split(sep)
-  console.log(words)
-  
 
-  // if(!re.test(String(e.target.value))) {
-  //   setNameError('Некорректные данные');
-  // } else {
-  //   setNameError('');
-  // }
+  //   if(words.length > 2) {
+  //     console.log('more than 2')
+  //   }
+  console.log(re.test(String(words[0])) || re.test(String(words[1])))
+  
+  if(re.test(String(words[0])) || re.test(String(words[1]))) {
+      setNameError('Некорректные данные');
+  } else {
+      setNameError('корректные данные');
+        if(words.lenght > 2) {
+          setNameError('Некорректные данные');
+          console.log('more than 2')
+        }
+    console.log(words)
+  }
+
   // setName(e.target.value);
   // if(e.target.value < 3 || e.target.value > 30) {}
 }
